@@ -5,31 +5,7 @@ Der Datensatz basiert auf einem bereinigten CSV (`bereinigter_titanic_datensatz.
 
 ---
 
-## ⚙️ Projektaufbau
-
-**Dateien:**
-- `ml_titanic.R` → vollständiges R-Skript (Training, Evaluation, Feature Importance & SHAP)
-- `bereinigter_titanic_datensatz.csv` → vorbereiteter Datensatz
-- `README.md` → Projektdokumentation
-
----
-
-## 📊 Modellbeschreibung
-
-Das Modell verwendet den **XGBoost-Algorithmus (`binary:logistic`)**, um vorherzusagen, ob ein Passagier überlebt hat (`survived = 1`) oder nicht (`survived = 0`).
-
-**Verwendete Features:**
-- `pclass` – Passagierklasse (1, 2, 3)
-- `age` – Alter
-- `sibsp` – Geschwister/Ehepartner an Bord
-- `parch` – Eltern/Kinder an Bord
-- `fare` – Ticketpreis
-- `sex_male` – Geschlecht (1 = männlich)
-- `embarked_Q`, `embarked_S` – Einschiffungshafen (Queenstown/Southampton)
-
----
-
-## 📈 Ergebnisse
+## 📈 Ergebnisse & Interpretation
 
 | Kennzahl | Wert | Bedeutung |
 |-----------|------|-----------|
@@ -37,14 +13,11 @@ Das Modell verwendet den **XGBoost-Algorithmus (`binary:logistic`)**, um vorherz
 | **AUC (ROC)** | 77.20 % | Modell trennt Überlebende und Nicht-Überlebende deutlich besser als Zufall |
 | **Baseline** | 57.47 % | Anteil der häufigeren Klasse („gestorben“) im Datensatz |
 
-**Konfusionsmatrix (Test-Set):**
-
-|               | Tatsächlich: Gestorben | Tatsächlich: Überlebt |
-|----------------|------------------------|------------------------|
-| **Vorhergesagt: Gestorben** | 134 | 63 |
-| **Vorhergesagt: Überlebt**  | 16  | 48 |
-
-Das Modell ist leicht **konservativ**, erkennt Todesfälle besser als Überlebende – typisch für den Titanic-Datensatz.
+🧩 **Interpretation:**
+- Das Modell reproduziert die historischen Überlebensmuster sehr gut.  
+- **Höhere soziale Klasse & teurere Tickets** führten zu besseren Überlebenschancen.  
+- **Jüngere Passagiere, Frauen und kleine Familien** hatten eine höhere Wahrscheinlichkeit zu überleben.  
+- Das Modell ist etwas konservativ – erkennt Todesfälle sicherer als Überlebende, was typisch für den Titanic-Datensatz ist.  
 
 ---
 
@@ -60,20 +33,25 @@ Das Modell ist leicht **konservativ**, erkennt Todesfälle besser als Überleben
 
 ---
 
-## 💡 Interpretation
+## ⚙️ Verwendete Technologien
 
-Das Modell reproduziert die **historischen Überlebensmuster** sehr gut:
-- Frauen und Kinder überleben häufiger  
-- Höhere Klassen (1. Klasse, teurere Tickets) hatten klar bessere Chancen  
-- Große Familien waren beim Evakuieren im Nachteil  
+| Bereich | Tools & Libraries |
+|----------|------------------|
+| **Programmiersprache** | R (Version ≥ 4.5) |
+| **Machine Learning** | `xgboost` – Gradient Boosted Decision Trees |
+| **Data Preprocessing** | `caret`, `Matrix`, Basisfunktionen in R |
+| **Evaluation** | `pROC` für ROC/AUC-Analyse |
+| **Erklärbarkeit** | SHAP-Analyse (`predcontrib=TRUE`) zur Interpretation von Feature-Einflüssen |
+| **Versionierung** | Git & GitHub |
 
 ---
 
-## 🧩 Tech Stack
+## 🧠 Projektstruktur
 
-- **R 4.5+**
-- **xgboost**, **caret**, **pROC**
-- (optional) **SHAPforxgboost** oder native SHAP-Berechnung
+**Dateien:**
+- `ml_titanic.R` → vollständiges R-Skript (Training, Evaluation, Feature Importance & SHAP)
+- `bereinigter_titanic_datensatz.csv` → bereinigter Titanic-Datensatz
+- `README.md` → Projektdokumentation
 
 ---
 
